@@ -1,9 +1,12 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex'
+import drivers from './modules/data-drivers'
+import busses from './modules/data-busses'
+import appointment from './modules/data-appointment'
 
 export default createStore({
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
-});
+    modules: {
+        drivers,
+        busses,
+        appointment,
+    },
+})
