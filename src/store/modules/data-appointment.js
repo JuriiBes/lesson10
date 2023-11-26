@@ -34,13 +34,17 @@ export default {
                 id: new Date().getTime(),
             })
         },
-        removeDriverOrBusAndAppointment(state, idItem, category) {
-            if (category == 'driver') {
+        removeDriverOrBusAndAppointment(state, dataItems) {
+            if (dataItems.category == 'driver') {
                 console.log('driver')
-                state.appointmentList = state.appointmentList.filter((appointment) => appointment.driverId !== idItem)
-            } else if (category == 'bus') {
+                state.appointmentList = state.appointmentList.filter(
+                    (appointment) => appointment.driverId !== dataItems.idItem
+                )
+            } else if (dataItems.category == 'bus') {
                 console.log('bus')
-                state.appointmentList = state.appointmentList.filter((appointment) => appointment.busId !== idItem)
+                state.appointmentList = state.appointmentList.filter(
+                    (appointment) => appointment.busId !== dataItems.idItem
+                )
             }
         },
     },
@@ -51,9 +55,9 @@ export default {
         addAppointmentItem({ commit }, dataNewAppointment) {
             commit('addAppointmentItem', dataNewAppointment)
         },
-        removeDriverOrBusAndAppointment({ commit }, idItem, category) {
+        removeDriverOrBusAndAppointment({ commit }, dataItems) {
             console.log('yes')
-            commit('removeDriverOrBusAndAppointment', idItem, category)
+            commit('removeDriverOrBusAndAppointment', dataItems)
         },
     },
     modules: {},

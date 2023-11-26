@@ -48,7 +48,7 @@ export default {
     actions: {
         removeItemBus({ commit, dispatch }, idBus) {
             commit('removeItemBus', idBus)
-            dispatch('appointment/removeDriverOrBusAndAppointment', idBus, 'bus', { root: true })
+            dispatch('appointment/removeDriverOrBusAndAppointment', { idItem: idBus, category: 'bus' }, { root: true })
         },
         addNewBus({ commit }, dataNewBus) {
             commit('addNewBus', dataNewBus)

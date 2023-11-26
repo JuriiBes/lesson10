@@ -9,8 +9,9 @@
                     :name-click-methods="'drivers'"
                 />
             </div>
+            <filter-component />
             <div class="drivers__list">
-                <div v-for="driver in gDriversList" :key="driver.id" class="drivers__item driver">
+                <div v-for="driver in gFilteredDataDrivers" :key="driver.id" class="drivers__item driver">
                     <div class="driver__name">{{ driver.driverName }}</div>
                     <div class="driver__experience">{{ driver.experience }}</div>
                     <custom-button :title-button="'edit'" @click="editItem(driver.id)" />
@@ -23,6 +24,7 @@
 
 <script>
 import EditPageItem from '@/pages/EditPageItem.vue'
+import FilterComponent from '@/pages/FilterComponent.vue'
 import CustomButton from '@/components/CustomButton.vue'
 import { mapGetters, mapActions } from 'vuex'
 
@@ -31,9 +33,10 @@ export default {
     components: {
         EditPageItem,
         CustomButton,
+        FilterComponent,
     },
     computed: {
-        ...mapGetters(`drivers`, ['gDriversList']),
+        ...mapGetters(`drivers`, ['gDriversList', 'gFilteredDataDrivers']),
     },
     methods: {
         ...mapActions(`drivers`, ['removeItemDriver']),
@@ -62,7 +65,7 @@ export default {
     &__body {
         display: flex;
         flex-direction: column;
-        gap: 3.125rem;
+        gap: 1rem;
         max-width: 43.75rem;
         margin: 0 auto;
         background-color: rgba(240, 248, 255, 0.2);
@@ -73,6 +76,7 @@ export default {
         font-size: 1.5rem;
         font-weight: 600;
         color: aqua;
+        margin-bottom: 1.5625rem;
     }
     // .drivers__create
     &__create {

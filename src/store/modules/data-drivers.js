@@ -1,4 +1,4 @@
-import { removeItem } from '@/store/helpers'
+import { removeItem, filterDrivers } from '@/store/helpers'
 export default {
     namespaced: true,
     state: {
@@ -24,10 +24,12 @@ export default {
                 experience: 22,
             },
         ],
+        dataFilter: {},
     },
     getters: {
         gDriversList: (state) => state.driversList,
         gReturnDataDriverById: (state) => (driverId) => state.driversList.find((driver) => driver.id == driverId),
+        gFilteredDataDrivers: (state) => state.driversList.filter((driver) => filterDrivers(driver, state.dataFilter)),
     },
     mutations: {
         removeItemDriver(state, idDriver) {
@@ -43,17 +45,27 @@ export default {
             let indexDriver = state.driversList.findIndex((driver) => driver.id == changeDriver.id)
             state.driversList[indexDriver] = { ...changeDriver }
         },
+        addDataFilter(state, filterData) {
+            state.dataFilter = filterData
+        },
     },
     actions: {
         removeItemDriver({ commit, dispatch }, idDriver) {
             commit('removeItemDriver', idDriver)
-            dispatch('appointment/removeDriverOrBusAndAppointment', idDriver, 'driver', { root: true })
+            dispatch(
+                'appointment/removeDriverOrBusAndAppointment',
+                { idItem: idDriver, category: 'driver' },
+                { root: true }
+            )
         },
         addNewDriver({ commit }, dataNewDriver) {
             commit('addNewDriver', dataNewDriver)
         },
         addChangeToDriverItem({ commit }, changeDriver) {
             commit('addChangeToDriverItem', changeDriver)
+        },
+        addDataFilter({ commit }, filterData) {
+            commit('addDataFilter', filterData)
         },
     },
 }
